@@ -13,15 +13,12 @@
 #include <unistd.h>
 using namespace std;
 
-#define WHITE_SPACE " \t\n"
-#define MAX_ARGS 64
-#define MAX_LINE_LEN 10
+#define TOKEN_DELIM " ";
 
 void printPrompt(){
 	printf("My Shell\n");
 }
 
-//Read the command line
 char *readCommand(){
 	char *line=NULL;
 	size_t bufsize=0;
@@ -29,17 +26,16 @@ char *readCommand(){
 	return line;
 }
 
-//Parse command
 char **parseCommand(char *command){
 
 	int position=0;
 	char *token;
-	char **tokens = (char **)malloc(MAX_LINE_LEN * sizeof(char*));
-	token=strtok(command,WHITE_SPACE);
+	char **tokens = (char **)malloc(64 * sizeof(char*));
+	token=strtok(command," \n");
 	//printf("Hello");
 	while(token!=NULL){
 		tokens[position]=token;
-		token=strtok(NULL,WHITE_SPACE);
+		token=strtok(NULL," \n");
 		++position;
 	}
 	//printf(tokens[1]);
@@ -48,14 +44,11 @@ char **parseCommand(char *command){
 
 }
 
-//Create child and execute the command
 int cmdExecute(char **args){
 	pid_t pid;
 	pid=fork();
 	if(pid==0){
-	if((execvp(args[0],args))==-1){
-		printf("Error in program execution\n");
-	}
+	execvp(args[0],args);
 	}
 	wait();
 	return 1;
@@ -67,10 +60,9 @@ int main(int argc,char **argv) {
 	while(1){
 		printPrompt();
 		command=readCommand();
-//Parse Command entered from the keyboard
 		cmdString=parseCommand(command);
-//Execute the command
 		int status=cmdExecute(cmdString);
+		//printf("%s\n",cmdString[0]);
 	}
 		return 0;
 
