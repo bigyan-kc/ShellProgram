@@ -6,11 +6,9 @@
 //============================================================================
 
 #include <stdio.h>
-#include <string>
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
-using namespace std;
 
 #define WHITE_SPACE " \t\n"
 #define MAX_ARGS 64
@@ -35,13 +33,11 @@ char **parseCommand(char *command){
 	char *token;
 	char **tokens = (char **)malloc(MAX_LINE_LEN * sizeof(char*));
 	token=strtok(command,WHITE_SPACE);
-	//printf("Hello");
 	while(token!=NULL){
 		tokens[position]=token;
 		token=strtok(NULL,WHITE_SPACE);
 		++position;
 	}
-	//printf(tokens[1]);
 	tokens[position]=NULL;
 	return tokens;
 
@@ -71,6 +67,6 @@ int main(int argc,char **argv) {
 //Execute the command
 		int status=cmdExecute(cmdString);
 	}
-		return 0;
+		return 1;
 
 }
