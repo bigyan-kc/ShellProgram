@@ -1,11 +1,10 @@
 //============================================================================
-// Author      : 
-// Version     :
+// Author      : Bigyan K C
+// Version     :1.0
 // Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
+// Description : Shell Program
 //============================================================================
 
-//#include <iostream>
 #include <stdio.h>
 #include <string>
 #include <string.h>
