@@ -10,6 +10,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#include <sys/types.h>
+#include <sys/wait.h>
+
 #define WHITE_SPACE " \t\n"
 #define MAX_ARGS 64
 #define MAX_LINE_LEN 10
@@ -45,6 +48,7 @@ char **parseCommand(char *command){
 
 //Create child and execute the command
 int cmdExecute(char **args){
+	int status;
 	pid_t pid;
 	pid=fork();
 	if(pid==0){
@@ -52,7 +56,7 @@ int cmdExecute(char **args){
 		printf("Error in program execution\n");
 	}
 	}
-	wait();
+	wait(&status);
 	return 1;
 }
 
